@@ -20,17 +20,18 @@ fn read(path: &Path, head: String) {
 }
 
 fn print(path: &Path, head: &String) {
-    let file_name = path.file_name().unwrap().to_str().unwrap();
+    let file_name = path.file_name().unwrap_or_default().to_str().unwrap();
     let extension = path.extension().unwrap_or_default().to_str().unwrap();
     let color_code = format!(
         "\x1b[38;5;{}m",
         match extension.to_lowercase().as_str() {
+            "" => 11,
             "txt" => 253,
-            "pdf" => 162,
+            "pdf" => 198,
             "png" | "jpg" | "jpeg" => 69,
             "mp3" | "ogg" | "flac" => 222,
             "mp4" => 191,
-            _ => 11,
+            _ => 248,
         },
     );
     let color_reset_code = "\x1b[0m";
